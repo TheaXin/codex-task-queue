@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>候场 · Codex 任务队列</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script defer src="/static/app.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#8be6bb" d="M5 6h19l4 3-4 3H5z"/><rect fill="#f2eee6" x="5" y="15" width="15" height="5" rx="2.5"/><rect fill="#f2eee6" x="5" y="23" width="15" height="5" rx="2.5"/></svg>候场</div>
+    <small id="connection" role="status">正在连接</small>
+    <button id="refresh" class="quiet-button" type="button" aria-label="刷新队列">↻</button>
+    <button id="new-task" aria-expanded="false" aria-controls="compose" class="primary" type="button">＋ 新建任务</button>
+  </header>
+  <main class="workspace">
+    <nav class="sidebar" aria-label="筛选任务状态">
+      <h2>任务队列</h2>
+      <button data-filter="all" aria-pressed="true"><i aria-hidden="true">≡</i>全部 <span></span></button>
+      <button data-filter="waiting" aria-pressed="false"><i aria-hidden="true">◷</i>等待中 <span></span></button>
+      <button data-filter="running" aria-pressed="false"><i aria-hidden="true">▷</i>执行中 <span></span></button>
+      <button data-filter="attention" aria-pressed="false"><i aria-hidden="true">!</i>需关注 <span></span></button>
+      <button data-filter="history" aria-pressed="false"><i aria-hidden="true">✓</i>已结束 <span></span></button>
+      <button data-filter="draft" aria-pressed="false"><i aria-hidden="true">✎</i>灵感 <span></span></button>
+      <p id="quota" role="status">正在读取额度状态…</p>
+    </nav>
+    <section class="queue" aria-label="任务列表">
+      <div class="columns" aria-hidden="true"><span>任务</span><span>最早执行</span><span>状态</span></div>
+      <div id="tasks"></div>
+    </section>
+    <aside class="inspector" aria-label="任务详情与新建任务">
+      <section id="detail"><p class="empty">选择一项任务查看详情。</p></section>
+      <section id="compose" hidden>
+        <div class="inspector-heading"><h2>新建任务</h2><button id="close-compose" class="quiet-button" type="button" aria-label="关闭新建任务">×</button></div>
+        <form id="form">
+          <div class="task-modes" role="group" aria-label="任务方式">
+            <button id="mode-queue" type="button" aria-pressed="true">加入队列</button>
+            <button id="mode-draft" type="button" aria-pressed="false">仅保存灵感</button>
+          </div>
+          <input id="mode" type="hidden" value="queue">
+          <div id="target-fields" class="form-fields">
+          <label for="search">目标会话</label>
+          <input id="search" type="search" placeholder="搜索名称、目录或会话 ID" autocomplete="off">
+          <select required id="thread" aria-label="选择目标会话"><option value="">请选择已有会话</option></select>
+          <p id="identity"></p>
+          </div>
+          <label for="prompt">任务内容</label>
+          <textarea required id="prompt" rows="7" placeholder="写下具体任务、预期结果和需要注意的事项…"></textarea>
+          <div id="timing-fields" class="form-fields">
+          <div class="field-heading"><label for="when">开始时间</label><span class="quiet">本地时间</span></div>
+          <select id="when"><option value="now">额度可用时执行</option><option value="later">指定最早执行时间</option></select>
+          <input hidden type="datetime-local" id="schedule" aria-label="最早执行时间">
+          </div>
+          <button id="submit" disabled>加入队列</button>
+
+        </form>
+      </section>
+      <p id="message" role="status"></p>
+    </aside>
+  </main>
+</body>
+</html>
