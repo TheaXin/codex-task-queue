@@ -2,6 +2,20 @@
 
 在本机网页中选择已有 Codex 会话、安排任务，并在额度可用后执行。任务保存在 SQLite 中，网页关闭后，已安装的 macOS 后台服务继续调度。
 
+## 界面预览
+
+![候场三栏界面，展示等待额度、执行中和已完成的任务](docs/screenshots/queue.png)
+
+截图来自实际运行的界面，任务和会话均为演示数据。
+
+## 使用场景
+
+1. **灵感还没想完整，先记下来。** 比如「想给发布页加一张安装流程图」。点「新建任务 → 仅保存灵感」，不用选会话或时间。以后到左侧「灵感」补写，准备好再加入队列。
+2. **有明确的事，晚点再跑。** 比如「今晚 21:00 之后跑一遍回归测试，整理失败项」。选择已有 Codex 会话和「指定最早执行时间」。到点后，后台服务在额度可用时才投递。
+3. **任务跑到一半碰到额度限制。** 比如发版前回归测试中断。任务会显示「等待额度恢复」。识别到明确的额度中断时，恢复后会在原会话发送续跑指令，要求先核对已完成部分。结果不明的任务会进入「需关注」，便于人工确认。
+
+![仅保存灵感表单，无需指定会话或执行时间](docs/screenshots/idea.png)
+
 ## macOS App
 
 安装 Xcode 或 Command Line Tools 后，运行 `bash macos/build.sh`。解压 `dist/候场-macOS.zip`，双击「候场.app」。App 使用独立窗口，与网页共用本机任务数据库。需要 Python 3.10+ 和已登录的 Codex CLI。构建产物仅做本地签名，未进行 Apple 公证。
@@ -84,6 +98,20 @@ python3 -m unittest discover -p 'test_*.py' -v
 # Houchang · Codex Task Queue
 
 Choose an existing Codex conversation in a local web interface, schedule tasks, and run them when quota becomes available. Tasks are stored in SQLite. After installation, the macOS background service continues scheduling when the browser closes.
+
+## Screenshots
+
+![Three-pane queue showing jobs waiting for quota, running, and completed](docs/screenshots/queue.png)
+
+Screenshots show the running interface with fictional tasks and conversations.
+
+## Example workflows
+
+1. **Capture an idea before it is ready to run.** For example, “Add an installation flow diagram to the release page.” Choose **New task → Save as idea**. No conversation or time is required. Reopen it from **Ideas** to refine and queue it later.
+2. **Schedule a known task for later.** For example, “Run the regression suite after 21:00 and summarize failures.” Select an existing Codex conversation and set the earliest start time. After that time, the background service submits the task when quota is available.
+3. **Pick up after a quota interruption.** For example, a release regression run is cut short. The task shows **Waiting for quota**. After a confirmed quota interruption, recovery sends a continuation instruction to the original conversation and asks Codex to check what is already done. Uncertain outcomes appear under **Needs attention** for review.
+
+![Save as idea form without conversation or time fields](docs/screenshots/idea.png)
 
 ## macOS app
 

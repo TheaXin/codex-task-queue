@@ -30,3 +30,6 @@
 !/macos/build.sh
 
 !/macos/Icon.swift
+!/docs/
+!/docs/screenshots/
+!/docs/screenshots/*.png

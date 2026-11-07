@@ -9,7 +9,7 @@ FILES = [
     "打开任务队列.command", "停止后台队列.command", "tools/export_source.py",
     "macos/App.swift", "macos/Icon.swift", "macos/build.sh",
 ]
-PATTERNS = ["test_*.py", "static/*.html", "static/*.css", "static/*.js",
+PATTERNS = ["docs/screenshots/*.png", "test_*.py", "static/*.html", "static/*.css", "static/*.js",
             "vendored/*.py", "vendored/LICENSE*", "vendored/SOURCE.md", ".github/workflows/*.yml"]
 
 
